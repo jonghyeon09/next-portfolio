@@ -8,13 +8,38 @@ export declare namespace Notion {
     | 'property_item'
     | 'user';
 
+  interface RichText {
+    type: string;
+    text: object;
+    annotations: object;
+    plain_text: string;
+    href: string;
+  }
+  interface PageProperties {
+    id: string;
+    type: string;
+    [key: string]: any;
+    title?: RichText[];
+  }
+  interface Page {
+    object: string;
+    id: string;
+    created_time: string;
+    created_by: object;
+    last_edited_time: string;
+    last_edited_by: object;
+    archived: boolean;
+    icon: object;
+    cover: object;
+    properties: { [key: string]: PageProperties };
+    parent: object;
+    url;
+  }
   interface DatabaseProperties {
     id: string;
-    name: string;
     type: string;
     [key: string]: any;
   }
-
   interface Database {
     object: string;
     id: string;
@@ -33,7 +58,7 @@ export declare namespace Notion {
     is_inline: boolean;
   }
 
-  interface Responses<T = Database> {
+  interface Responses<T = Page> {
     has_more: boolean;
     next_cursor: string;
     object: 'list';
