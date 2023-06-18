@@ -7,7 +7,15 @@ export declare namespace Notion {
     | 'database'
     | 'property_item'
     | 'user';
+  type CustomProperties = '이름' | '기술' | 'Github' | '날짜' | '설명';
+  type Properties<T> = {
+    [key in CustomProperties]: T;
+  };
 
+  interface PageCover {
+    type: 'external';
+    external: { url: string };
+  }
   interface RichText {
     type: string;
     text: object;
@@ -15,11 +23,18 @@ export declare namespace Notion {
     plain_text: string;
     href: string;
   }
+  interface MultiSelect {
+    color: string;
+    id: string;
+    name: string;
+  }
   interface PageProperties {
     id: string;
     type: string;
     [key: string]: any;
     title?: RichText[];
+    rich_text?: RichText[];
+    multi_select?: MultiSelect[];
   }
   interface Page {
     object: string;
@@ -30,8 +45,8 @@ export declare namespace Notion {
     last_edited_by: object;
     archived: boolean;
     icon: object;
-    cover: object;
-    properties: { [key: string]: PageProperties };
+    cover: PageCover;
+    properties: Properties<PageProperties>;
     parent: object;
     url;
   }
@@ -51,7 +66,7 @@ export declare namespace Notion {
     description: object[];
     icon: object;
     cover: object;
-    properties: { [key: string]: DatabaseProperties };
+    properties: Properties<DatabaseProperties>;
     parent: object;
     url: string;
     archived: boolean;
