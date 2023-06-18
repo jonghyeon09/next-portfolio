@@ -7,10 +7,10 @@ interface Props {
 
 export default function Layout({ children }: Props) {
   return (
-    <div className="bg-primary">
+    <div className="bg-primary h-screen">
       <Header />
-      <main>{children}</main>
-      <Footer />
+      <main className="max-w-screen-xl mx-auto">{children}</main>
+      {/* <Footer /> */}
     </div>
   );
 }

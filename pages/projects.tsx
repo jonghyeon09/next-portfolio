@@ -3,6 +3,7 @@ import Head from 'next/head';
 import type { InferGetStaticPropsType, GetStaticProps } from 'next';
 import { TOKEN, DATABASE_ID } from '@/config';
 import { Notion } from '@/types';
+import ProjectItem from '@/components/projects/ProjectItem';
 
 export default function projects({
   projects,
@@ -19,14 +20,20 @@ export default function projects({
         ></meta>
       </Head>
       <Layout>
-        <h1>총 프로젝트: {projects.results.length}</h1>
-
-        {projects.results.map((project, i) => (
-          <h1 key={i}>
-            {project.properties.이름.title &&
-              project.properties.이름.title[0].plain_text}
+        <div className="flex flex-col items-center px-5 mb-10">
+          <h1 className="text-4xl font-bold sm:text-6xl">
+            총 프로젝트:
+            <span className="pl-4 text-blue-500">
+              {projects.results.length}
+            </span>
           </h1>
-        ))}
+
+          <div className="grid grid-cols-1 md:grid-cols-2 py-10 m-6 gap-8 w-full">
+            {projects.results.map((project) => (
+              <ProjectItem key={project.id} data={project} />
+            ))}
+          </div>
+        </div>
       </Layout>
     </>
   );
